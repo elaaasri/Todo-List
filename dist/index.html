@@ -24,10 +24,10 @@
       <div id="project-task-container">
         <div id="project-item"></div>
 
-        <!-- <form id="form-task">
+        <form method="dialog" id="form-task" style="display: none">
           <div id="form-title">
             <label>Title:</label>
-            <input type="text" placeholder="What To Do:" autofocus required />
+            <input type="text" placeholder="What To Do:" required />
           </div>
           <div id="form-details">
             <label>Details(optional):</label>
@@ -38,35 +38,25 @@
             <input type="date" required />
           </div>
           <div id="form-priority">
-            <label>Priority: </label>
-            <div id="form-priority-buttons">
-              <input type="button" value="Low" />
-              <input type="button" value="Medium" />
-              <input type="button" value="High" />
+            <label>Priority(optional): </label>
+            <div id="form-priority-buttons" required>
+              <input class="priority-buttons" type="button" value="Low" />
+              <input class="priority-buttons" type="button" value="Medium" />
+              <input class="priority-buttons" type="button" value="High" />
             </div>
           </div>
           <div id="form-submit">
             <input type="submit" value="Add" />
             <input type="button" value="cancel" />
           </div>
-        </form> -->
+        </form>
+        <!-- <div id="task-output-container">
+          <input type="checkbox" />
+          <div id="task-output-tilte">title</div>
+          <div id="task-output-details">details</div>
+          <div id="task-output-date">10/10/2023</div>
+        </div> -->
       </div>
-
-      <!-- <form id="form-container">
-        <input placeholder="Title" />
-        <input placeholder="Description" />
-        <div>
-          <label>Due Date: </label>
-          <input type="date" />
-        </div>
-        <div>
-          <label>Priority: </label>
-          <input type="button" value="LOW" />
-          <input type="button" value="MEDIUM" />
-          <input type="button" value="HIGH" />
-        </div>
-        <input type="submit" value="Add" />
-      </form> -->
     </main>
     <footer>
       zbe
