@@ -1,79 +1,158 @@
-import Project, {
-  addDefaultProject,
-  addDefaultProjectTasks,
-} from "./projects.js";
+import Project from "./projects.js";
+import Task from "./tasks.js";
 
-console.log(addDefaultProject(), addDefaultProjectTasks());
-
+// create new default project :
+const newDefaultProject = new Project("Sport");
+const newDefaultTask = new Task(
+  "Gym",
+  "Chest Workout, Cardio.",
+  "Today",
+  "High"
+);
+// DOM form elements :
+let formTask = document.getElementById("form-task");
+let formTitle = formTask[0];
+let formDetails = formTask[1];
+let formDate = formTask[2];
+// func to show default project name :
 function showDefaultProject() {
-  const projectContainer = document.getElementById("project-container");
+  const projectItems = document.getElementById("sidebar-project-items");
   const defaultProjectDiv = document.createElement("div");
   defaultProjectDiv.id = "default-project-div";
-  defaultProjectDiv.textContent = addDefaultProject().name;
-  projectContainer.appendChild(defaultProjectDiv);
+  defaultProjectDiv.textContent = newDefaultProject.name;
+  projectItems.appendChild(defaultProjectDiv);
 }
 showDefaultProject();
 
+// event to display project :
+const projectName = document.getElementById("default-project-div");
+projectName.addEventListener("click", () => {
+  createDefaultProject();
+  createDefaultTask();
+  showTaskForm();
+});
+
 // func to create project task :
-function createTaskContainer() {
-  const projectItem = document.getElementById("project-item");
-  projectItem.innerHTML = `
-      <span id="project-title"">${addDefaultProject().name}</span>
+const createDefaultProject = () => {
+  const defaultProjectOutput = document.getElementById(
+    "default-project-output"
+  );
+  defaultProjectOutput.style.cssText = "display: flex";
+
+  defaultProjectOutput.innerHTML = `
+      <span id="project-title"">${newDefaultProject.name}</span>
       <button id="add-task-button">+ Add Task</button>
   `;
-  showTaskForm();
-}
-// event call for default project name :
-const defaultProjectDiv = document.getElementById("default-project-div");
-defaultProjectDiv.addEventListener("click", createTaskContainer);
-
+};
+// func to show default task container :
+const createDefaultTask = () => {
+  const defaultTaskOutput = document.getElementById("default-task-output");
+  defaultTaskOutput.style.cssText = "display: flex";
+  defaultTaskOutput.innerHTML = `
+        <div id="check-title-div">
+        <input type="checkbox" />
+        <div id="task-output-tilte">${newDefaultTask.title}</div>
+        </div>
+        <div id="task-output-details">${newDefaultTask.description}</div>
+        <div id="task-output-date">${newDefaultTask.dueDate}</div>`;
+};
 // func to show task form :
 function showTaskForm() {
   const addTaskButton = document.getElementById("add-task-button");
   addTaskButton.addEventListener("click", () => {
-    const formTask = document.getElementById("form-task");
     formTask.style.cssText = "display: flex";
   });
 }
-
-// form submit event for showing the the form output  :
-const submitButton = document.querySelector('input[type="submit"]');
-submitButton.addEventListener("click", displayFormOutput);
-
-function displayFormOutput() {
-  // form elements  :
-  let formTask = document.getElementById("form-task");
-  let formTitle = formTask[0];
-  let formDetails = formTask[1];
-  let formDate = formTask[2];
+// func to shw form outputs :
+const showFormOutput = () => {
+  // return form submit if empty :
   if (
     formTitle.value === "" ||
     formDetails.value === "" ||
     formDate.value === ""
   )
     return;
-  // display form outputs :
-  const createFormOutputElement = () => {
-    const projectTaskContainer = document.getElementById(
-      "project-task-container"
-    );
-    const taskOutputContainer = document.createElement("div");
-    taskOutputContainer.id = "task-output-container";
-    taskOutputContainer.innerHTML = `
+  // create new form output :
+  const projectTaskContainer = document.getElementById(
+    "project-output-container"
+  );
+  const formTaskOutput = document.createElement("div");
+  formTaskOutput.id = "form-task-output";
+  formTaskOutput.innerHTML = `
+      <div id="check-title-div">
       <input type="checkbox" />
       <div id="task-output-tilte">${formTitle.value}</div>
+      </div>
       <div id="task-output-details">${formDetails.value}</div>
       <div id="task-output-date">${formDate.value}</div>`;
-    projectTaskContainer.appendChild(taskOutputContainer);
-  };
-  createFormOutputElement();
-  // clean form :
-  const cleanFormData = () => {
-    formTask.reset();
-  };
+  projectTaskContainer.appendChild(formTaskOutput);
   cleanFormData();
-}
+};
+// clean Form Data :
+const cleanFormData = () => {
+  formTask.reset();
+};
+// form submit event for showing the the form output  :
+const addSubmitButton = document.querySelector('input[type="submit"]');
+addSubmitButton.addEventListener("click", showFormOutput);
+// form cancel button to remove form :
+const cancelSubmitButton = document.getElementById("cancel-submit");
+cancelSubmitButton.addEventListener("click", function () {
+  formTask.style.cssText = "display: none";
+});
 
+// function displayFormOutput() {
+//   // form elements  :
+//   let formTask = document.getElementById("form-task");
+//   let formTitle = formTask[0];
+//   let formDetails = formTask[1];
+//   let formDate = formTask[2];
+//   if (
+//     formTitle.value === "" ||
+//     formDetails.value === "" ||
+//     formDate.value === ""
+//   )
+//     return;
+//   // display form outputs :
+//   const createFormOutputElement = () => {
+//     const projectTaskContainer = document.getElementById(
+//       "project-task-container"
+//     );
+//     const taskOutputContainer = document.createElement("div");
+//     taskOutputContainer.id = "task-output-container";
+//     taskOutputContainer.innerHTML = `
+//       <input type="checkbox" />
+//       <div id="task-output-tilte">${formTitle.value}</div>
+//       <div id="task-output-details">${formDetails.value}</div>
+//       <div id="task-output-date">${formDate.value}</div>`;
+//     projectTaskContainer.appendChild(taskOutputContainer);
+//   };
+//   createFormOutputElement();
+//   // clean form :
+//   const cleanFormData = () => {
+//     formTask.reset();
+//   };
+//   cleanFormData();
+// }
+// // event call for add project button :
+// const addProjectContainer = document.getElementById(
+//   "add-project-name-container"
+// );
+// const addProjectButton = document.getElementById("add-project-button");
+// const projectNameInput = document.getElementById("project-name-input");
+// addProjectButton.addEventListener("click", addProjectName);
+
+// function addProjectName() {
+//   addProjectContainer.style.cssText = "display : flex";
+//   if (projectNameInput.value === "") return;
+//   const projectContainer = document.getElementById("project-container");
+//   const newProject = new Project(projectNameInput.value);
+//   const newProjectDiv = document.createElement("div");
+//   newProjectDiv.id = "new-project-div";
+//   newProjectDiv.textContent = newProject.name;
+//   projectContainer.appendChild(newProjectDiv);
+// }
+// ########################################""
 // function displayFormOutput() {
 //   const getFormOutput = () => {
 //     const formTask = document.getElementById("form-task");
