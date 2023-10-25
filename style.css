@@ -38,6 +38,73 @@ main {
   gap: 80px;
   width: 250px;
 }
+#project-items {
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+  font-size: 20px;
+}
+/* add project styles */
+#project-container {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+#project-items > h1 {
+  font-size: 25px;
+}
+/* add project name container styles */
+#add-project-name-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 20px;
+}
+#add-project-name-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+#project-name-input {
+  border: none;
+  height: 30px;
+  padding-left: 10px;
+  border-radius: 5px;
+  outline: none;
+}
+#add-project-name-button {
+  background-color: greenyellow;
+  border: none;
+  height: 20px;
+  border-radius: 3px;
+  outline: none;
+  width: 60px;
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+}
+#cancel-project-name-button {
+  background-color: red;
+  border: none;
+  height: 20px;
+  border-radius: 3px;
+  outline: none;
+  width: 60px;
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+}
+#add-project-name-button:hover,
+#cancel-project-name-button:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+/* side bar styles  */
 #bar-items {
   display: flex;
   flex-direction: column;
@@ -45,20 +112,30 @@ main {
   gap: 20px;
   font-size: 20px;
 }
-/* footer styles */
-footer {
-  grid-column: 1 / 4;
-  grid-row: 3 / 4;
-  background-color: rgb(61, 61, 61);
+#add-project-button {
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  background-color: greenyellow;
+  box-shadow: 0 2px 5px rgba(1, 1, 1, 0.5);
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+  border-radius: 100px;
+  font-size: 25px;
+}
+#add-project-button:hover {
+  background-color: white;
 }
 /* project task container styles */
-#project-task-container {
+#project-output-container {
   display: flex;
   flex-direction: column;
   gap: 50px;
   padding: 20px;
 }
-#project-item {
+#default-project-output {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -207,11 +284,37 @@ footer {
   color: black;
 }
 /* task output styles */
-#task-output-container {
+#default-task-output,
+#form-task-output {
   border: solid 3px rgb(0, 217, 255);
   height: 50px;
   border-radius: 5px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
   align-items: center;
+}
+#task-output-details {
+  font-size: 15px;
+}
+#task-output-date {
+  border: solid 3px rgb(0, 217, 255);
+  border-radius: 5px;
+  font-size: 10px;
+  padding: 5px;
+}
+#check-title-div {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+#task-output-tilte {
+  font-weight: bold;
+}
+/* footer styles */
+footer {
+  grid-column: 1 / 4;
+  grid-row: 3 / 4;
+  background-color: rgb(61, 61, 61);
 }

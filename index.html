@@ -15,15 +15,31 @@
           <div>Today</div>
           <div>This Week</div>
         </div>
-        <div id="project-items">
+        <!--  -->
+        <div id="sidebar-project-container">
           <h1>Projects</h1>
-          <div id="project-container"></div>
+          <div id="sidebar-project-items"></div>
+          <!-- <div id="add-project-name-container" style="display: none">
+            <input
+              type="text"
+              id="project-name-input"
+              placeholder="Enter Project Name:"
+            />
+            <div id="add-project-name-buttons">
+              <input type="button" value="Add" id="add-project-name-button" />
+              <input
+                type="button"
+                value="Cancel"
+                id="cancel-project-name-button"
+              />
+            </div>
+          </div>
+          <button id="add-project-button">+</button> -->
         </div>
       </div>
 
-      <div id="project-task-container">
-        <div id="project-item"></div>
-
+      <div id="project-output-container">
+        <div id="default-project-output" style="display: none"></div>
         <form method="dialog" id="form-task" style="display: none">
           <div id="form-title">
             <label>Title:</label>
@@ -47,15 +63,11 @@
           </div>
           <div id="form-submit">
             <input type="submit" value="Add" />
-            <input type="button" value="cancel" />
+            <input id="cancel-submit" type="button" value="cancel" />
           </div>
         </form>
-        <!-- <div id="task-output-container">
-          <input type="checkbox" />
-          <div id="task-output-tilte">title</div>
-          <div id="task-output-details">details</div>
-          <div id="task-output-date">10/10/2023</div>
-        </div> -->
+        <!--  -->
+        <div id="default-task-output" style="display: none"></div>
       </div>
     </main>
     <footer>
