@@ -3,12 +3,7 @@ import Task from "./tasks.js";
 
 // create new default project :
 const newDefaultProject = new Project("Sport");
-const newDefaultTask = new Task(
-  "Gym",
-  "Chest Workout, Cardio.",
-  "Today",
-  "High"
-);
+const newDefaultTask = new Task("Gym", "Chest Workout, Cardio.", "Today");
 // DOM form elements :
 let formTask = document.getElementById("form-task");
 let formTitle = formTask[0];
@@ -30,6 +25,7 @@ projectName.addEventListener("click", () => {
   createDefaultProject();
   createDefaultTask();
   showTaskForm();
+  defaultCheckboxButtonStyles();
 });
 
 // func to create project task :
@@ -38,7 +34,6 @@ const createDefaultProject = () => {
     "default-project-output"
   );
   defaultProjectOutput.style.cssText = "display: flex";
-
   defaultProjectOutput.innerHTML = `
       <span id="project-title"">${newDefaultProject.name}</span>
       <button id="add-task-button">+ Add Task</button>
@@ -50,11 +45,11 @@ const createDefaultTask = () => {
   defaultTaskOutput.style.cssText = "display: flex";
   defaultTaskOutput.innerHTML = `
         <div id="check-title-div">
-        <input type="checkbox" />
-        <div id="task-output-tilte">${newDefaultTask.title}</div>
+        <input id="default-checkbox-button" type="checkbox" />
+        <div id="default-output-title">${newDefaultTask.title}</div>
         </div>
-        <div id="task-output-details">${newDefaultTask.description}</div>
-        <div id="task-output-date">${newDefaultTask.dueDate}</div>`;
+        <div id="default-output-details">${newDefaultTask.description}</div>
+        <div id="default-output-date">${newDefaultTask.dueDate}</div>`;
 };
 // func to show task form :
 function showTaskForm() {
@@ -80,13 +75,14 @@ const showFormOutput = () => {
   formTaskOutput.id = "form-task-output";
   formTaskOutput.innerHTML = `
       <div id="check-title-div">
-      <input type="checkbox" />
-      <div id="task-output-tilte">${formTitle.value}</div>
+      <input id="checkbox-button" type="checkbox" />
+      <div id="task-output-title">${formTitle.value}</div>
       </div>
       <div id="task-output-details">${formDetails.value}</div>
       <div id="task-output-date">${formDate.value}</div>`;
   projectTaskContainer.appendChild(formTaskOutput);
   cleanFormData();
+  checkboxButtonStyles();
 };
 // clean Form Data :
 const cleanFormData = () => {
@@ -100,6 +96,64 @@ const cancelSubmitButton = document.getElementById("cancel-submit");
 cancelSubmitButton.addEventListener("click", function () {
   formTask.style.cssText = "display: none";
 });
+
+// func to style defualt elements :
+const defaultCheckboxButtonStyles = () => {
+  // default output project DOM :
+  const defaultCheckbox = document.getElementById("default-checkbox-button");
+  const defaultTitle = document.getElementById("default-output-title");
+  const defaultDetails = document.getElementById("default-output-details");
+  const defaultDate = document.getElementById("default-output-date");
+  // func to style default elements :
+  const styleDefaultElements = () => {
+    if (defaultCheckbox.checked) {
+      defaultTitle.style.cssText = "text-decoration : line-through";
+      defaultDetails.style.cssText = "text-decoration : line-through";
+      defaultDate.style.cssText = "text-decoration : line-through";
+    } else {
+      defaultTitle.style.cssText = "text-decoration : none";
+      defaultDetails.style.cssText = "text-decoration : none";
+      defaultDate.style.cssText = "text-decoration : none";
+    }
+  };
+  // default button event :
+  defaultCheckbox.addEventListener("change", styleDefaultElements);
+};
+// func to style the task output when checkbox checked :
+function checkboxButtonStyles() {
+  const allCheckboxButton = document.querySelectorAll("#checkbox-button");
+  allCheckboxButton.forEach((checkboxBtn) => {
+    checkboxBtn.addEventListener("change", () => {
+      // task output DOM :
+      const parentElement = checkboxBtn.parentElement.parentElement;
+      const taskOutputTitle = parentElement.querySelector("#task-output-title");
+      const taskOutputDetails = parentElement.querySelector(
+        "#task-output-details"
+      );
+      const taskOutputDate = parentElement.querySelector("#task-output-date");
+      // condition to check if current the checkbox checked or not :
+      if (checkboxBtn.checked) {
+        taskOutputTitle.style.cssText = "text-decoration : line-through";
+        taskOutputDetails.style.cssText = "text-decoration : line-through";
+        taskOutputDate.style.cssText = "text-decoration : line-through";
+      } else {
+        taskOutputTitle.style.cssText = "text-decoration : none";
+        taskOutputDetails.style.cssText = "text-decoration : none";
+        taskOutputDate.style.cssText = "text-decoration : none";
+      }
+    });
+  });
+}
+
+// const checkboxButtonStyles = () => {
+//   const checkBoxButton = document.getElementById("checkbox-button");
+//   const taskOutputTitle = document.getElementById("task-output-title");
+//   const taskOutputDetails = document.getElementById("task-output-details");
+//   const taskOutputDate = document.getElementById("task-output-date");
+
+//   checkBoxButton.addEventListener("change", test);
+//   console.log(checkBoxButton);
+// };
 
 // function displayFormOutput() {
 //   // form elements  :
@@ -134,24 +188,27 @@ cancelSubmitButton.addEventListener("click", function () {
 //   };
 //   cleanFormData();
 // }
+// ############################
 // // event call for add project button :
-// const addProjectContainer = document.getElementById(
-//   "add-project-name-container"
-// );
-// const addProjectButton = document.getElementById("add-project-button");
+const addProjectContainer = document.getElementById("add-new-project-form");
+const addProjectButton = document.getElementById("add-project-button");
 // const projectNameInput = document.getElementById("project-name-input");
-// addProjectButton.addEventListener("click", addProjectName);
+addProjectButton.addEventListener("click", addProjectName);
 
-// function addProjectName() {
-//   addProjectContainer.style.cssText = "display : flex";
-//   if (projectNameInput.value === "") return;
-//   const projectContainer = document.getElementById("project-container");
-//   const newProject = new Project(projectNameInput.value);
-//   const newProjectDiv = document.createElement("div");
-//   newProjectDiv.id = "new-project-div";
-//   newProjectDiv.textContent = newProject.name;
-//   projectContainer.appendChild(newProjectDiv);
-// }
+const showFormButton = document.getElementById("showFormButton");
+const myForm = document.getElementById("myForm");
+
+function addProjectName() {
+  console.log("test");
+  addProjectContainer.style.cssText = "display : flex";
+  // if (projectNameInput.value === "") return;
+  // const projectContainer = document.getElementById("project-container");
+  // const newProject = new Project(projectNameInput.value);
+  // const newProjectDiv = document.createElement("div");
+  // newProjectDiv.id = "new-project-div";
+  // newProjectDiv.textContent = newProject.name;
+  // projectContainer.appendChild(newProjectDiv);
+}
 // ########################################""
 // function displayFormOutput() {
 //   const getFormOutput = () => {
