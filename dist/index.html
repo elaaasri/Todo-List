@@ -20,7 +20,7 @@
           <h1>Projects</h1>
           <div id="sidebar-project-items"></div>
           <!-- add project form -->
-          <div id="add-new-project-form" style="display: none">
+          <form method="dialog" id="add-new-project-form" style="display: none">
             <input
               type="text"
               id="project-name-input"
@@ -34,13 +34,14 @@
                 id="cancel-project-name-button"
               />
             </div>
-          </div>
+          </form>
           <button id="add-project-button">+</button>
         </div>
       </div>
 
       <div id="project-output-container">
         <div id="default-project-output" style="display: none"></div>
+
         <form method="dialog" id="form-task" style="display: none">
           <div id="form-title">
             <label>Title:</label>
@@ -59,8 +60,7 @@
             <input id="cancel-submit" type="button" value="cancel" />
           </div>
         </form>
-        <!--  -->
-        <div id="default-task-output" style="display: none"></div>
+        <!-- <div id="default-task-output" style="display: none"></div> -->
       </div>
     </main>
     <footer>
