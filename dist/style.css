@@ -64,7 +64,7 @@ main {
   gap: 10px;
   padding-bottom: 20px;
 }
-#add-project-name-buttons {
+#add-cancel-form-project-buttons {
   display: flex;
   justify-content: center;
   gap: 20px;
@@ -76,7 +76,7 @@ main {
   gap: 10px;
   padding-left: 5px;
 }
-#add-new-project-form {
+#sidebar-form-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -88,7 +88,7 @@ main {
   border-radius: 5px;
   outline: none;
 }
-#add-project-name-button {
+#sidebar-add-button {
   background-color: greenyellow;
   border: none;
   height: 20px;
@@ -110,7 +110,7 @@ main {
   font-weight: bold;
   color: white;
 }
-#add-project-name-button:hover,
+#sidebar-add-button:hover,
 #cancel-project-name-button:hover {
   background-color: white;
   color: black;
@@ -141,25 +141,17 @@ main {
   background-color: white;
 }
 /* project task container styles */
-#project-output-container {
+#project-preview {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 20px;
   padding: 20px;
 }
-#default-project-output {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  font-size: 40px;
-}
-#project-title {
+#project-header-name {
   height: 50px;
   display: flex;
   align-items: center;
   padding-left: 20px;
-  font-size: 30px;
   box-shadow: 0 2px 5px rgba(1, 1, 1, 0.5);
   border-radius: 5px;
   background-color: rgb(0, 255, 225);
