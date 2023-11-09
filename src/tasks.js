@@ -14,4 +14,5 @@ class Task {
     return this.dueDate;
   }
 }
+
 export default Task;
