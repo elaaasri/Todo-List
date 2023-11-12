@@ -4,10 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script
+      src="https://kit.fontawesome.com/96f630ca48.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400;700&family=Nanum+Pen+Script&family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
     <script src="main.js" type="module" defer></script>
+    <link rel="icon" href="./images/to-do-list.png" type="image/png" />
   </head>
   <body>
-    <header>ToDo List</header>
+    <header>
+      <img id="todo-img" src="./images/to-do-list.png" alt="toDo image" />
+      ToDo List
+    </header>
     <main>
       <div id="sidebar">
         <div id="bar-items">
@@ -65,6 +79,7 @@
               type="text"
               name="details"
               placeholder="Description:"
+              required
             />
           </div>
           <div id="form-date">
