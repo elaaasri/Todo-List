@@ -1,4 +1,3 @@
-import Task from "./tasks.js";
 class Project {
   constructor(name) {
     this.name = name;

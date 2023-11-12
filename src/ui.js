@@ -15,99 +15,135 @@ const projectItems = document.getElementById("sidebar-project-items");
 const sidebarFormContainer = document.getElementById("sidebar-form-container");
 const projectNameInput = document.getElementById("project-name-input");
 const addProjectButton = document.getElementById("add-project-button");
-// ############################""
+// declare variables :
 const allProjects = [];
 let selectedProject = null;
-let projectName;
+// create new project :
 function addNewProject() {
   const project = new Project(projectNameInput.value);
   allProjects.push(project);
+  return project;
 }
-// DOM Elements
+// create new project task :
+function addNewtask() {
+  const newTask = new Task(formTitle.value, formDetails.value, formDate.value);
+  selectedProject.taskArr.push(newTask);
+  return newTask;
+}
+// DOM Elements :
 const DOMElement = {
-  updateProjectPreview(element) {
-    projectHeaderName.textContent = element.target.textContent;
+  updateProjectPreview(projectName) {
+    projectHeaderName.textContent = projectName.textContent;
     projectHeaderName.style.cssText = "display : flex";
     addTaskButton.style.cssText = "display : block";
   },
   createSideBarElement() {
+    // fix the same name input :
     if (projectNameInput.value === "") return;
+    for (const project of allProjects) {
+      if (projectNameInput.value === project.name) {
+        alert("this project already exist!");
+        return;
+      }
+    }
+    // create new project element :
     const newProjectDiv = document.createElement("div");
-    const projectName = projectNameInput.value;
+    const projectDeletebutton = document.createElement("button");
+    const sidebarProjectName = document.createElement("span");
+    const projectNameValue = projectNameInput.value;
+    sidebarProjectName.setAttribute("data-value", projectNameValue);
     newProjectDiv.className = "sidebar-project";
-    newProjectDiv.textContent = projectName;
+    sidebarProjectName.className = "project-name";
+    projectDeletebutton.textContent = "x";
+    projectDeletebutton.className = "delete-button";
+    sidebarProjectName.textContent = projectNameValue;
+    newProjectDiv.appendChild(sidebarProjectName);
+    newProjectDiv.appendChild(projectDeletebutton);
     projectItems.appendChild(newProjectDiv);
+    // getSelectedProject(sidebarProjectName);
+    this.sideBarElementEvent(sidebarProjectName);
+    this.deleteSideBarElement(projectDeletebutton);
+  },
+  deleteSideBarElement(projectDeletebutton) {
+    const parentElement = projectDeletebutton.parentElement;
+    projectDeletebutton.onclick = () => {
+      parentElement.remove();
+      console.log(allProjects);
+      // console.log(getSelectedProject(sidebarAddButton));
+      // getSelectedProject(sidebarProjectName);
+      // console.log(getSelectedProject().zbe());
+    };
+  },
+  // side bar elements event :
+  sideBarElementEvent(sidebarProjectName) {
+    const projectName = sidebarProjectName.textContent;
+    sidebarProjectName.onclick = () => {
+      this.updateProjectPreview(sidebarProjectName);
+      form.style.cssText = "display : none";
+      getSelectedProject(projectName);
+      this.hideTaskElements();
+    };
+  },
+  hideTaskElements() {
+    const allTasks = document.querySelectorAll("#form-task-output");
+    allTasks.forEach((task) => {
+      const projectDataValue = task.getAttribute("data-value");
+      if (selectedProject.name === projectDataValue) {
+        task.style.cssText = "display: flex";
+      } else {
+        task.style.cssText = "display: none";
+      }
+    });
   },
 };
+const DOMForm = {
+  addTaskElement() {
+    // fix required inputs :
+    if (
+      formTitle.value === "" ||
+      formDetails.value === "" ||
+      formDate.value === ""
+    )
+      return;
+    // create task elements :
+    const formTaskOutput = document.createElement("div");
+    formTaskOutput.setAttribute("data-value", selectedProject.getNewName());
+    selectedProject.taskArr.forEach((task) => {
+      formTaskOutput.id = "form-task-output";
+      formTaskOutput.innerHTML = `
+          <div id="check-title-div">
+          <input id="checkbox-button" type="checkbox" />
+          <div id="task-output-title">${task.getTitle()}</div>
+          </div>
+          <div id="task-output-details">${task.getDetails()}</div>
+          <div id="task-output-date">${task.getDate()}</div>`;
+      projectPreviewContainer.appendChild(formTaskOutput);
+      this.cleanFormData();
+    });
+  },
+  // reset form after submiting :
+  cleanFormData() {
+    form.reset();
+  },
+};
+function getSelectedProject(projectName) {
+  selectedProject = allProjects.find((project) => project.name === projectName);
+}
 // event click to show side bar form :
 addProjectButton.addEventListener("click", function () {
   sidebarFormContainer.style.cssText = "display : flex";
 });
+// event click for side bar submit button :
 sidebarAddButton.addEventListener("click", function () {
-  if (projectNameInput.value === "") return;
   DOMElement.createSideBarElement();
   addNewProject();
-  sideBarElementAddEvent();
   projectNameInput.value = "";
 });
-
-function sideBarElementAddEvent() {
-  const allSidebarProjectItems = document.querySelectorAll(".sidebar-project");
-  allSidebarProjectItems.forEach((element) => {
-    element.addEventListener("click", function (element) {
-      form.style.cssText = "display : none";
-      projectName = element.target.textContent;
-      selectedProject = allProjects.find(
-        (project) => project.name === projectName
-      );
-      DOMElement.updateProjectPreview(element);
-      const allTasks = document.querySelectorAll("#form-task-output");
-      allTasks.forEach((task) => {
-        const projectDataValue = task.getAttribute("data-value");
-        if (selectedProject.name === projectDataValue) {
-          task.style.cssText = "display: flex";
-        } else {
-          task.style.cssText = "display: none";
-        }
-      });
-    });
-  });
-}
 // form submit event :
 formSubmitTaskButton.addEventListener("click", function () {
-  if (selectedProject) {
-    // create the new task and add it to the selected project :
-    const newTask = new Task(
-      formTitle.value,
-      formDetails.value,
-      formDate.value
-    );
-    selectedProject.taskArr.push(newTask);
-  }
-  if (
-    formTitle.value === "" ||
-    formDetails.value === "" ||
-    formDate.value === ""
-  )
-    return;
-  const formTaskOutput = document.createElement("div");
-  formTaskOutput.setAttribute("data-value", projectName);
-  selectedProject.taskArr.forEach((task) => {
-    formTaskOutput.id = "form-task-output";
-    formTaskOutput.innerHTML = `
-        <div id="check-title-div">
-        <input id="checkbox-button" type="checkbox" />
-        <div id="task-output-title">${task.title}</div>
-        </div>
-        <div id="task-output-details">${task.description}</div>
-        <div id="task-output-date">${task.dueDate}</div>`;
-    projectPreviewContainer.appendChild(formTaskOutput);
-    cleanFormData();
-  });
+  addNewtask();
+  DOMForm.addTaskElement();
 });
-function cleanFormData() {
-  form.reset();
-}
 // project preview add task button event :
 addTaskButton.addEventListener("click", function () {
   form.style.cssText = "display : flex";

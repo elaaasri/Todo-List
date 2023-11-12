@@ -16,10 +16,19 @@ header {
   grid-row: 1 / 2;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-size: 50px;
   background-color: rgb(61, 61, 61);
+  background-color: #fef3c7;
+  padding-left: 100px;
+  gap: 20px;
+  font-family: "Nanum Pen Script";
+}
+
+#todo-img {
+  height: 60px;
+  width: 60px;
 }
 /* main styles */
 main {
@@ -63,6 +72,10 @@ main {
   flex-direction: column;
   gap: 10px;
   padding-bottom: 20px;
+}
+.sidebar-project {
+  justify-content: space-between;
+  display: flex;
 }
 #add-cancel-form-project-buttons {
   display: flex;
