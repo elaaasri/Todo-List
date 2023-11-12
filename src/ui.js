@@ -55,7 +55,7 @@ const DOMElement = {
     newProjectDiv.className = "sidebar-project";
     sidebarProjectName.className = "project-name";
     projectDeletebutton.textContent = "x";
-    projectDeletebutton.className = "delete-button";
+    projectDeletebutton.className = "delete-project-button";
     sidebarProjectName.textContent = projectNameValue;
     newProjectDiv.appendChild(sidebarProjectName);
     newProjectDiv.appendChild(projectDeletebutton);
@@ -66,13 +66,26 @@ const DOMElement = {
   },
   deleteSideBarElement(projectDeletebutton) {
     const parentElement = projectDeletebutton.parentElement;
+    const projectName = projectDeletebutton.previousElementSibling.textContent;
     projectDeletebutton.onclick = () => {
       parentElement.remove();
-      console.log(allProjects);
-      // console.log(getSelectedProject(sidebarAddButton));
-      // getSelectedProject(sidebarProjectName);
-      // console.log(getSelectedProject().zbe());
+      this.hideAllTasks();
+      projectHeaderName.style.cssText = "display: none";
+      addTaskButton.style.cssText = "display: none";
+      form.style.cssText = "display: none";
+      const index = allProjects.findIndex(
+        (project) => project.name === projectName
+      );
+      if (index != -1) {
+        allProjects.splice(index, 1);
+      }
     };
+  },
+  hideAllTasks() {
+    const allTasks = document.querySelectorAll("#form-task-output");
+    allTasks.forEach((task) => {
+      task.style.cssText = "display: none";
+    });
   },
   // side bar elements event :
   sideBarElementEvent(sidebarProjectName) {
@@ -107,19 +120,36 @@ const DOMForm = {
       return;
     // create task elements :
     const formTaskOutput = document.createElement("div");
+    const deleteTaskButton = document.createElement("button");
+    deleteTaskButton.textContent = "X";
+    deleteTaskButton.id = "delete-task-button";
     formTaskOutput.setAttribute("data-value", selectedProject.getNewName());
     selectedProject.taskArr.forEach((task) => {
       formTaskOutput.id = "form-task-output";
       formTaskOutput.innerHTML = `
           <div id="check-title-div">
-          <input id="checkbox-button" type="checkbox" />
+          <input id="checkbox-button" type="checkbox"/>
           <div id="task-output-title">${task.getTitle()}</div>
           </div>
           <div id="task-output-details">${task.getDetails()}</div>
           <div id="task-output-date">${task.getDate()}</div>`;
+      formTaskOutput.appendChild(deleteTaskButton);
       projectPreviewContainer.appendChild(formTaskOutput);
+      this.deleteTask(deleteTaskButton, task);
       this.cleanFormData();
     });
+  },
+  deleteTask(deleteTaskButton, task) {
+    const taskElement = deleteTaskButton.parentElement;
+    deleteTaskButton.onclick = function () {
+      taskElement.remove();
+      const index = selectedProject.taskArr.findIndex(
+        (selectedProjectTask) => selectedProjectTask === task
+      );
+      if (index != -1) {
+        selectedProject.taskArr.splice(index, 1);
+      }
+    };
   },
   // reset form after submiting :
   cleanFormData() {
