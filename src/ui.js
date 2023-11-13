@@ -1,5 +1,7 @@
+import { addDays, format } from "date-fns";
 import Project from "./projects.js";
 import Task from "./tasks.js";
+
 // DOM Form :
 const projectPreviewContainer = document.getElementById("project-preview");
 const projectHeaderName = document.getElementById("project-header-name");
@@ -16,6 +18,15 @@ const sidebarFormContainer = document.getElementById("sidebar-form-container");
 const projectNameInput = document.getElementById("project-name-input");
 const addProjectButton = document.getElementById("add-project-button");
 
+// set Due Date to one week from the date :
+const setDueDate = () => {
+  const formDateValue = formDate.value;
+  if (formDateValue === "") return;
+  const date = new Date(formDateValue);
+  const addOneWeek = addDays(date, 7);
+  const dueDate = format(addOneWeek, "yyyy-MM-dd");
+  return dueDate;
+};
 // declare variables :
 const allProjects = [];
 let selectedProject = null;
@@ -27,7 +38,7 @@ function addNewProject() {
 }
 // create new project task :
 function addNewtask() {
-  const newTask = new Task(formTitle.value, formDetails.value, formDate.value);
+  const newTask = new Task(formTitle.value, formDetails.value, setDueDate());
   selectedProject.taskArr.push(newTask);
   return newTask;
 }
@@ -112,12 +123,12 @@ const DOMElement = {
 const DOMForm = {
   addTaskElement() {
     // fix required inputs :
-    // if (
-    //   formTitle.value === "" ||
-    //   formDetails.value === "" ||
-    //   formDate.value === ""
-    // )
-    //   return;
+    if (
+      formTitle.value === "" ||
+      formDetails.value === "" ||
+      formDate.value === ""
+    )
+      return;
     // create task elements :
     const formTaskOutput = document.createElement("div");
     const deleteTaskButton = document.createElement("button");
@@ -147,9 +158,12 @@ const DOMForm = {
         taskDescription,
         taskDetails
       );
+      console.log(allProjects);
+
       this.cleanFormData();
     });
   },
+  // delete task button event :
   deleteTask(deleteTaskButton, task) {
     const taskElement = deleteTaskButton.parentElement;
     deleteTaskButton.onclick = function () {
@@ -162,6 +176,7 @@ const DOMForm = {
       }
     };
   },
+  // checkbox event :
   taskCheckbox(checkboxButton, taskTitle, taskDescription, taskDetails) {
     checkboxButton.onclick = function () {
       if (this.checked) {
@@ -180,6 +195,7 @@ const DOMForm = {
     form.reset();
   },
 };
+// comparing the sidebar project name with the project name in allprojects arr and returning it :
 function getSelectedProject(projectName) {
   selectedProject = allProjects.find((project) => project.name === projectName);
 }
