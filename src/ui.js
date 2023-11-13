@@ -15,6 +15,7 @@ const projectItems = document.getElementById("sidebar-project-items");
 const sidebarFormContainer = document.getElementById("sidebar-form-container");
 const projectNameInput = document.getElementById("project-name-input");
 const addProjectButton = document.getElementById("add-project-button");
+
 // declare variables :
 const allProjects = [];
 let selectedProject = null;
@@ -60,7 +61,6 @@ const DOMElement = {
     newProjectDiv.appendChild(sidebarProjectName);
     newProjectDiv.appendChild(projectDeletebutton);
     projectItems.appendChild(newProjectDiv);
-    // getSelectedProject(sidebarProjectName);
     this.sideBarElementEvent(sidebarProjectName);
     this.deleteSideBarElement(projectDeletebutton);
   },
@@ -112,12 +112,12 @@ const DOMElement = {
 const DOMForm = {
   addTaskElement() {
     // fix required inputs :
-    if (
-      formTitle.value === "" ||
-      formDetails.value === "" ||
-      formDate.value === ""
-    )
-      return;
+    // if (
+    //   formTitle.value === "" ||
+    //   formDetails.value === "" ||
+    //   formDate.value === ""
+    // )
+    //   return;
     // create task elements :
     const formTaskOutput = document.createElement("div");
     const deleteTaskButton = document.createElement("button");
@@ -135,7 +135,18 @@ const DOMForm = {
           <div id="task-output-date">${task.getDate()}</div>`;
       formTaskOutput.appendChild(deleteTaskButton);
       projectPreviewContainer.appendChild(formTaskOutput);
+      const checkboxButton = formTaskOutput.firstElementChild.firstElementChild;
+      const taskTitle = checkboxButton.nextElementSibling;
+      const taskDescription =
+        formTaskOutput.firstElementChild.nextElementSibling;
+      const taskDetails = taskDescription.nextElementSibling;
       this.deleteTask(deleteTaskButton, task);
+      this.taskCheckbox(
+        checkboxButton,
+        taskTitle,
+        taskDescription,
+        taskDetails
+      );
       this.cleanFormData();
     });
   },
@@ -148,6 +159,19 @@ const DOMForm = {
       );
       if (index != -1) {
         selectedProject.taskArr.splice(index, 1);
+      }
+    };
+  },
+  taskCheckbox(checkboxButton, taskTitle, taskDescription, taskDetails) {
+    checkboxButton.onclick = function () {
+      if (this.checked) {
+        taskTitle.style.cssText = "text-decoration : line-through";
+        taskDescription.style.cssText = "text-decoration : line-through";
+        taskDetails.style.cssText = "text-decoration : line-through";
+      } else {
+        taskTitle.style.cssText = "text-decoration : none";
+        taskDescription.style.cssText = "text-decoration : none";
+        taskDetails.style.cssText = "text-decoration : none";
       }
     };
   },

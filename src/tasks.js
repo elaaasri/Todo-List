@@ -13,9 +13,5 @@ class Task {
   getDate() {
     return this.dueDate;
   }
-  removeTask() {
-    const formTaskOutput = this.removeBtn.parentElement;
-    formTaskOutput.remove();
-  }
 }
 export default Task;
