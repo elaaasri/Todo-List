@@ -55,6 +55,7 @@ const DOMElement = {
     for (const project of allProjects) {
       if (projectNameInput.value === project.name) {
         alert("this project already exist!");
+
         return;
       }
     }
@@ -72,15 +73,22 @@ const DOMElement = {
     newProjectDiv.appendChild(sidebarProjectName);
     newProjectDiv.appendChild(projectDeletebutton);
     projectItems.appendChild(newProjectDiv);
-    this.sideBarElementEvent(sidebarProjectName);
     this.deleteSideBarElement(projectDeletebutton);
+    this.sideBarElementEvent(sidebarProjectName);
   },
   deleteSideBarElement(projectDeletebutton) {
     const parentElement = projectDeletebutton.parentElement;
     const projectName = projectDeletebutton.previousElementSibling.textContent;
     projectDeletebutton.onclick = () => {
       parentElement.remove();
-      this.hideAllTasks();
+      this.hideTaskElements();
+      const allTasks = document.querySelectorAll("#form-task-output");
+      allTasks.forEach((task) => {
+        const projectDataValue = task.getAttribute("data-value");
+        if (selectedProject.name === projectDataValue) {
+          task.remove();
+        }
+      });
       projectHeaderName.style.cssText = "display: none";
       addTaskButton.style.cssText = "display: none";
       form.style.cssText = "display: none";
@@ -91,12 +99,6 @@ const DOMElement = {
         allProjects.splice(index, 1);
       }
     };
-  },
-  hideAllTasks() {
-    const allTasks = document.querySelectorAll("#form-task-output");
-    allTasks.forEach((task) => {
-      task.style.cssText = "display: none";
-    });
   },
   // side bar elements event :
   sideBarElementEvent(sidebarProjectName) {
@@ -112,6 +114,7 @@ const DOMElement = {
     const allTasks = document.querySelectorAll("#form-task-output");
     allTasks.forEach((task) => {
       const projectDataValue = task.getAttribute("data-value");
+      // task.remove();
       if (selectedProject.name === projectDataValue) {
         task.style.cssText = "display: flex";
       } else {
@@ -158,8 +161,6 @@ const DOMForm = {
         taskDescription,
         taskDetails
       );
-      console.log(allProjects);
-
       this.cleanFormData();
     });
   },
