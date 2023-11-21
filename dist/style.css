@@ -94,6 +94,9 @@ main {
   flex-direction: column;
   gap: 10px;
 }
+.project-name {
+  flex: 1;
+}
 #project-name-input {
   border: none;
   height: 30px;
