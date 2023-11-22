@@ -4,9 +4,6 @@ import Task from "./tasks.js";
 import Storage from "./storage.js";
 
 // DOM Form :
-const sideBarProjectContainer = document.getElementById(
-  "sidebar-project-container"
-);
 const projectPreviewContainer = document.getElementById("project-preview");
 const projectHeaderName = document.getElementById("project-header-name");
 const addTaskButton = document.getElementById("add-task-button");
@@ -118,22 +115,11 @@ const UI = {
       this.updateProjectPreview(sidebarProjectName);
       form.style.cssText = "display : none";
       getSelectedProject(projectName);
-      this.hideTaskElements();
+      this.showCurrentProjectTasks();
     };
   },
   // show task elements wih the same data-value :
-  showTaskElements: function () {
-    const allTasks = document.querySelectorAll("#form-task-output");
-    allTasks.forEach((task) => {
-      const projectDataValue = task.getAttribute("data-value");
-      if (selectedProject.name === projectDataValue) {
-        task.style.cssText = "display: flex";
-      } else {
-        task.style.cssText = "display: none";
-      }
-    });
-  },
-  hideTaskElements: function () {
+  showCurrentProjectTasks: function () {
     const allTasks = document.querySelectorAll("#form-task-output");
     allTasks.forEach((task) => {
       const projectDataValue = task.getAttribute("data-value");
@@ -146,12 +132,6 @@ const UI = {
   },
   // form UI :
   addTaskElement: function () {
-    if (
-      formTitle.value === "" ||
-      formDetails.value === "" ||
-      formDate.value === ""
-    )
-      return;
     // create task elements :
     const formTaskOutput = document.createElement("div");
     const deleteTaskButton = document.createElement("button");
@@ -242,14 +222,19 @@ sidebarAddButton.addEventListener("click", function () {
   UI.createSideBarElement(projectName);
   addNewProject(projectName);
   projectNameInput.value = "";
-  // Storage.setLocalStorage(allProjects);
-  // setLocalStorage();
+  Storage.setAllProjects(allProjects);
 });
 // form submit event :
 formSubmitTaskButton.addEventListener("click", function () {
   addNewtask();
+  if (
+    formTitle.value === "" ||
+    formDetails.value === "" ||
+    formDate.value === ""
+  )
+    return;
   UI.addTaskElement();
-  // setLocalStorage();
+  Storage.setAllProjects(allProjects);
 });
 // project preview add task button event :
 addTaskButton.addEventListener("click", function () {
@@ -260,39 +245,28 @@ formCancelTaskButton.addEventListener("click", function () {
   form.style.cssText = "display : none";
 });
 const testButton = document.getElementById("test");
-testButton.onclick = function () {
+testButton.onclick = () => {
   console.log(allProjects);
 };
-
-// if (!localStorage.getItem("allStorageProjects")) {
-//   setLocalStorage();
-// } else {
-//   StorageUI();
-// }
-// function setLocalStorage() {
-//   localStorage.setItem("allProjects", JSON.stringify(allProjects));
-// }
-// function StorageUI() {
-//   const allStorageProjects = JSON.parse(localStorage.getItem("allProjects"));
-//   console.log(allProjects);
-//   allStorageProjects.forEach((project) => {
-//     const projetName = project.name;
-//     addNewProject(projetName);
-//     // allProjects.push(project);
-
-//     console.log(allProjects);
-//   });
-//   // allStorageProjects.forEach((project) => {
-//   //   const projectName = project.name;
-//   //   allProjects.push(project);
-//   //   getSelectedProject(projectName);
-//   //   UI.createSideBarElement(projectName);
-//   //   project.taskArr.forEach((task) => {
-//   //     UI.addTaskElement();
-//   //     const allTasks = document.querySelectorAll("#form-task-output");
-//   //     allTasks.forEach((task) => {
-//   //       task.style.cssText = "display :none";
-//   //     });
-//   //   });
-//   // });
-// }
+// storage UI Elements :
+const storageUI = {
+  storageProjects: Storage.getAllProjects(),
+  displayStorage: function () {
+    this.storageProjects.forEach((project) => {
+      const projectName = project.name;
+      allProjects.push(project);
+      getSelectedProject(projectName);
+      UI.createSideBarElement(projectName);
+      UI.addTaskElement();
+      this.hideAllTasks();
+    });
+  },
+  hideAllTasks: function () {
+    const allTasks = document.querySelectorAll("#form-task-output");
+    console.log(allTasks);
+    allTasks.forEach((task) => {
+      task.style.cssText = "display: none";
+    });
+  },
+};
+storageUI.displayStorage();
