@@ -6,7 +6,7 @@
 body {
   height: 100vh;
   display: grid;
-  grid-template-rows: 70px 1fr 80px;
+  grid-template-rows: 70px 1fr 35px;
   grid-template-columns: repeat(3, 1fr);
   font-family: "Courier New", Courier, monospace;
 }
@@ -19,8 +19,7 @@ header {
   justify-content: flex-start;
   align-items: center;
   font-size: 50px;
-  background-color: rgb(61, 61, 61);
-  background-color: #fef3c7;
+  background-color: rgb(0, 255, 225);
   padding-left: 100px;
   gap: 20px;
   font-family: "Nanum Pen Script";
@@ -37,10 +36,11 @@ main {
   grid-template-rows: 1fr;
   grid-column: 1 / 4;
   grid-row: 2 / 2;
+  background-color: #f0eeed;
 }
 /* sidebar styles */
 #sidebar {
-  background-color: grey;
+  background-color: rgb(151, 253, 241);
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -48,7 +48,6 @@ main {
   width: 250px;
 }
 #bar-items {
-  background-color: green;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -63,15 +62,16 @@ main {
   justify-content: center;
   gap: 5px;
 }
-#project-items > h1 {
-  font-size: 25px;
-}
 /* add project name container styles */
 #sidebar-project-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding-bottom: 20px;
+}
+#sidebar-project-container > h1 {
+  font-size: 25px;
+  font-style: italic;
 }
 .sidebar-project {
   justify-content: space-between;
@@ -136,9 +136,11 @@ main {
 #bar-items {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  gap: 20px;
+  justify-content: space-evenly;
+  gap: 30px;
+  font-weight: bold;
   font-size: 20px;
+  font-style: italic;
 }
 #add-project-button {
   align-self: center;
@@ -286,14 +288,26 @@ main {
 #default-output-title {
   font-weight: bold;
 }
-/* footer styles */
-footer {
+/* footer styles : */
+.footer {
   grid-column: 1 / 4;
   grid-row: 3 / 4;
-  background-color: rgb(61, 61, 61);
-}
-#task-list {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-top: 1px solid rgb(0, 255, 225);
+}
+.fa-github {
+  color: white;
+  font-size: 20px;
+  transition: transform 0.5s ease-in-out;
+}
+.fa-github:hover {
+  transform: rotate(360deg) scale(1.3);
 }
