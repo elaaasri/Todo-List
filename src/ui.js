@@ -248,6 +248,12 @@ const testButton = document.getElementById("test");
 testButton.onclick = () => {
   console.log(allProjects);
 };
+// fix the bug if there's no data in local storage :
+if (!localStorage.getItem("allProjects")) {
+  Storage.setAllProjects(allProjects);
+} else {
+  Storage.getAllProjects();
+}
 // storage UI Elements :
 const storageUI = {
   storageProjects: Storage.getAllProjects(),
@@ -270,3 +276,4 @@ const storageUI = {
   },
 };
 storageUI.displayStorage();
+// 2 - deleted projects and tasks using storage module :
