@@ -6,7 +6,7 @@
 body {
   height: 100vh;
   display: grid;
-  grid-template-rows: 70px 1fr 35px;
+  grid-template-rows: 90px 1fr 35px;
   grid-template-columns: repeat(3, 1fr);
   font-family: "Courier New", Courier, monospace;
 }
@@ -23,6 +23,7 @@ header {
   padding-left: 100px;
   gap: 20px;
   font-family: "Nanum Pen Script";
+  font-size: 60px;
 }
 #todo-img {
   height: 60px;
@@ -46,6 +47,39 @@ main {
   gap: 80px;
   width: 250px;
 }
+#projects-header {
+  font-size: 25px;
+  font-weight: bold;
+}
+#sidebar-inbox,
+#sidebar-today,
+#sidebar-week,
+#projects-header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+#sidebar-inbox > img,
+#sidebar-today > img,
+#sidebar-week > img,
+#projects-header > img {
+  width: 25px;
+}
+#sidebar-inbox > a,
+#sidebar-today > a,
+#sidebar-week > a,
+#projects-header > a {
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease-in-out, box-shadow 0.6s ease-in-out;
+}
+#sidebar-inbox > a:hover,
+#sidebar-today > a:hover,
+#sidebar-week > a:hover,
+#projects-header > a:hover {
+  box-shadow: inset 500px 0 0 0 rgb(48, 44, 44);
+  color: white;
+}
 #bar-items {
   display: flex;
   flex-direction: column;
@@ -65,16 +99,31 @@ main {
 #sidebar-project-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   padding-bottom: 20px;
 }
-#sidebar-project-container > h1 {
-  font-size: 25px;
-  font-style: italic;
-}
 .sidebar-project {
-  justify-content: space-between;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+.project-name {
+  flex: 1;
+  padding-left: 10px;
+  transition: color 0.3s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+.project-name:hover {
+  box-shadow: inset 500px 0 0 0 rgb(48, 44, 44);
+  color: white;
+}
+#project-icon {
+  width: 25px;
+}
+.delete-project-button,
+#delete-task-button {
+  width: 18px;
 }
 #add-cancel-form-project-buttons {
   display: flex;
@@ -92,9 +141,6 @@ main {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-.project-name {
-  flex: 1;
 }
 #project-name-input {
   border: none;
@@ -139,7 +185,6 @@ main {
   gap: 30px;
   font-weight: bold;
   font-size: 20px;
-  font-style: italic;
 }
 #add-project-button {
   align-self: center;
@@ -254,7 +299,6 @@ main {
   color: black;
 }
 /* task output styles */
-#default-task-output,
 #form-task-output {
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   background-color: rgb(192, 232, 237);
@@ -267,12 +311,10 @@ main {
   padding-right: 10px;
   align-items: center;
 }
-#task-output-details,
-#default-output-details {
+#task-output-details {
   font-size: 15px;
 }
-#task-output-date,
-#default-output-date {
+#task-output-date {
   border: solid 3px rgb(0, 217, 255);
   border-radius: 5px;
   font-size: 10px;
@@ -283,20 +325,8 @@ main {
   justify-content: flex-start;
   gap: 10px;
 }
-#task-output-title,
-#default-output-title {
+#task-output-title {
   font-weight: bold;
-}
-#sidebar-inbox:hover {
-  background-color: red;
-}
-.sidebar-inbox:hover {
-  display: grid;
-  row-gap: 15px;
-  grid-template-columns: 1fr 5fr;
-  align-items: center;
-  padding-left: 20px;
-  color: white;
 }
 /* footer styles : */
 .footer {
