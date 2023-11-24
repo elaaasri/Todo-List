@@ -24,7 +24,6 @@ header {
   gap: 20px;
   font-family: "Nanum Pen Script";
 }
-
 #todo-img {
   height: 60px;
   width: 60px;
@@ -288,6 +287,17 @@ main {
 #default-output-title {
   font-weight: bold;
 }
+#sidebar-inbox:hover {
+  background-color: red;
+}
+.sidebar-inbox:hover {
+  display: grid;
+  row-gap: 15px;
+  grid-template-columns: 1fr 5fr;
+  align-items: center;
+  padding-left: 20px;
+  color: white;
+}
 /* footer styles : */
 .footer {
   grid-column: 1 / 4;
@@ -299,7 +309,7 @@ main {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   font-size: 13px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   border-top: 1px solid rgb(0, 255, 225);
 }

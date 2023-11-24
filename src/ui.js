@@ -3,7 +3,7 @@ import Project from "./projects.js";
 import Task from "./tasks.js";
 import Storage from "./storage.js";
 
-// DOM Form :
+// DOM :
 const projectPreviewContainer = document.getElementById("project-preview");
 const projectHeaderName = document.getElementById("project-header-name");
 const addTaskButton = document.getElementById("add-task-button");
@@ -18,7 +18,6 @@ const projectItems = document.getElementById("sidebar-project-items");
 const sidebarFormContainer = document.getElementById("sidebar-form-container");
 const projectNameInput = document.getElementById("project-name-input");
 const addProjectButton = document.getElementById("add-project-button");
-
 // set Due Date to one week from the date :
 const setDueDate = () => {
   const formDateValue = formDate.value;
@@ -52,7 +51,7 @@ function addNewtask() {
 // comparing the sidebar project name with the project name in allprojects arr and returning it :
 const getSelectedProject = (projectName) => {
   selectedProject = allProjects.find((project) => project.name === projectName);
-  return selectedProject;
+  // return selectedProject;
 };
 // UI Elements :
 const UI = {
@@ -99,13 +98,15 @@ const UI = {
       });
     };
     projectDeletebutton.onclick = () => {
+      getSelectedProject(projectName);
       parentElement.remove();
-      this.hideTaskElements();
+      this.showCurrentProjectTasks();
       projectHeaderName.style.cssText = "display: none";
       addTaskButton.style.cssText = "display: none";
       form.style.cssText = "display: none";
-      deleteCurrentProjectTasks();
       deleteCurrentProject();
+      deleteCurrentProjectTasks();
+      Storage.deleteCurrentStorageProject(projectName);
     };
   },
   // side bar elements event :
@@ -176,7 +177,9 @@ const UI = {
       }
     };
     deleteTaskButton.onclick = function () {
+      // getSelectedProject(projectName);
       taskElement.remove();
+      Storage.deleteCurrentStorageTasks(task);
       deleteCurrentTask();
     };
   },
@@ -244,10 +247,6 @@ addTaskButton.addEventListener("click", function () {
 formCancelTaskButton.addEventListener("click", function () {
   form.style.cssText = "display : none";
 });
-const testButton = document.getElementById("test");
-testButton.onclick = () => {
-  console.log(allProjects);
-};
 // fix the bug if there's no data in local storage :
 if (!localStorage.getItem("allProjects")) {
   Storage.setAllProjects(allProjects);
@@ -269,11 +268,9 @@ const storageUI = {
   },
   hideAllTasks: function () {
     const allTasks = document.querySelectorAll("#form-task-output");
-    console.log(allTasks);
     allTasks.forEach((task) => {
       task.style.cssText = "display: none";
     });
   },
 };
 storageUI.displayStorage();
-// 2 - deleted projects and tasks using storage module :
