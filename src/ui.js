@@ -2,7 +2,6 @@ import { addDays, format } from "date-fns";
 import Project from "./projects.js";
 import Task from "./tasks.js";
 import Storage from "./storage.js";
-
 // DOM :
 const projectPreviewContainer = document.getElementById("project-preview");
 const projectHeaderName = document.getElementById("project-header-name");
@@ -18,6 +17,9 @@ const projectItems = document.getElementById("sidebar-project-items");
 const sidebarFormContainer = document.getElementById("sidebar-form-container");
 const projectNameInput = document.getElementById("project-name-input");
 const addProjectButton = document.getElementById("add-project-button");
+const cancelProjectNameButton = document.getElementById(
+  "cancel-project-name-button"
+);
 // set Due Date to one week from the date :
 const setDueDate = () => {
   const formDateValue = formDate.value;
@@ -63,14 +65,18 @@ const UI = {
   createSideBarElement: function (projectName) {
     // create new project element :
     const newProjectDiv = document.createElement("div");
-    const projectDeletebutton = document.createElement("button");
     const sidebarProjectName = document.createElement("span");
+    const projectDeletebutton = document.createElement("img");
+    const projectIcon = document.createElement("img");
+    projectDeletebutton.className = "delete-project-button";
+    projectDeletebutton.setAttribute("src", "../dist/images/delete-icon.png");
+    projectIcon.id = "project-icon";
+    projectIcon.setAttribute("src", "../dist/images/project.png");
     sidebarProjectName.setAttribute("data-value", projectName);
     newProjectDiv.className = "sidebar-project";
     sidebarProjectName.className = "project-name";
-    projectDeletebutton.textContent = "x";
-    projectDeletebutton.className = "delete-project-button";
     sidebarProjectName.textContent = projectName;
+    newProjectDiv.appendChild(projectIcon);
     newProjectDiv.appendChild(sidebarProjectName);
     newProjectDiv.appendChild(projectDeletebutton);
     projectItems.appendChild(newProjectDiv);
@@ -135,8 +141,8 @@ const UI = {
   addTaskElement: function () {
     // create task elements :
     const formTaskOutput = document.createElement("div");
-    const deleteTaskButton = document.createElement("button");
-    deleteTaskButton.textContent = "X";
+    const deleteTaskButton = document.createElement("img");
+    deleteTaskButton.setAttribute("src", "../dist/images/delete-icon.png");
     deleteTaskButton.id = "delete-task-button";
     formTaskOutput.setAttribute("data-value", selectedProject.name);
     selectedProject.taskArr.forEach((task) => {
@@ -226,6 +232,10 @@ sidebarAddButton.addEventListener("click", function () {
   addNewProject(projectName);
   projectNameInput.value = "";
   Storage.setAllProjects(allProjects);
+});
+// event click to hide side bar form :
+cancelProjectNameButton.addEventListener("click", function () {
+  sidebarFormContainer.style.cssText = "display : none";
 });
 // form submit event :
 formSubmitTaskButton.addEventListener("click", function () {

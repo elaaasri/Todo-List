@@ -15,7 +15,7 @@
       rel="stylesheet"
     />
     <script src="main.js" type="module" defer></script>
-    <link rel="icon" href="./images/to-do-list.png" type="image/png" />
+    <link rel="icon" href="./images/checked.png" type="image/png" />
   </head>
   <body>
     <header>
@@ -26,16 +26,25 @@
       <div id="sidebar">
         <div id="bar-items">
           <div id="sidebar-inbox">
-            <img src="./images/to-do-list.png" alt="" style="width: 10px" />
-            <a href="#">inbox</a>
+            <img src="./images/inbox.png" alt="" />
+            <a href="#">Inbox</a>
           </div>
-
-          <div>Today</div>
-          <div>This Week</div>
+          <div id="sidebar-today">
+            <img src="./images/today.png" alt="" />
+            <a href="#">Today</a>
+          </div>
+          <div id="sidebar-week">
+            <img src="./images/week.png" alt="" />
+            <a href="#">This Week</a>
+          </div>
         </div>
         <!--  -->
         <div id="sidebar-project-container">
-          <h1>Projects</h1>
+          <div id="projects-header">
+            <img src="./images/projects.png" alt="" />
+            <a href="#">Projects</a>
+          </div>
+          <!-- <h1>Projects</h1> -->
           <div id="sidebar-project-items"></div>
           <!-- add project form -->
           <form
