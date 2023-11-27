@@ -1,7 +1,7 @@
-import { addDays, format } from "date-fns";
 import Project from "./projects.js";
 import Task from "./tasks.js";
 import Storage from "./storage.js";
+import { addDays, format } from "date-fns";
 // DOM :
 const projectPreviewContainer = document.getElementById("project-preview");
 const projectHeaderName = document.getElementById("project-header-name");
@@ -16,6 +16,7 @@ const sidebarAddButton = document.getElementById("sidebar-add-button");
 const projectItems = document.getElementById("sidebar-project-items");
 const sidebarFormContainer = document.getElementById("sidebar-form-container");
 const projectNameInput = document.getElementById("project-name-input");
+const projectsHeaderDiv = document.getElementById("sidebar-project-headear");
 const addProjectButton = document.getElementById("add-project-button");
 const cancelProjectNameButton = document.getElementById(
   "cancel-project-name-button"
@@ -50,10 +51,10 @@ function addNewtask() {
   selectedProject.taskArr.push(newTask);
   return newTask;
 }
-// comparing the sidebar project name with the project name in allprojects arr and returning it :
+// getting selected project by comparing the project name with projects names in allProjects array :
 const getSelectedProject = (projectName) => {
   selectedProject = allProjects.find((project) => project.name === projectName);
-  // return selectedProject;
+  return selectedProject;
 };
 // UI Elements :
 const UI = {
@@ -214,6 +215,16 @@ const UI = {
   },
 };
 // event click to show side bar form :
+let click = 0;
+projectsHeaderDiv.addEventListener("click", function () {
+  if (click == 0) {
+    sidebarFormContainer.style.cssText = "display : flex";
+    click++;
+  } else if (click != 0) {
+    sidebarFormContainer.style.cssText = "display : none";
+    click = 0;
+  }
+});
 addProjectButton.addEventListener("click", function () {
   sidebarFormContainer.style.cssText = "display : flex";
 });
