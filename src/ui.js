@@ -70,9 +70,9 @@ const UI = {
     const projectDeletebutton = document.createElement("img");
     const projectIcon = document.createElement("img");
     projectDeletebutton.className = "delete-project-button";
-    projectDeletebutton.setAttribute("src", "../dist/images/delete-icon.png");
+    projectDeletebutton.setAttribute("src", "images/delete-icon.png");
     projectIcon.id = "project-icon";
-    projectIcon.setAttribute("src", "../dist/images/project.png");
+    projectIcon.setAttribute("src", "images/project.png");
     sidebarProjectName.setAttribute("data-value", projectName);
     newProjectDiv.className = "sidebar-project";
     sidebarProjectName.className = "project-name";
@@ -143,7 +143,7 @@ const UI = {
     // create task elements :
     const formTaskOutput = document.createElement("div");
     const deleteTaskButton = document.createElement("img");
-    deleteTaskButton.setAttribute("src", "../dist/images/delete-icon.png");
+    deleteTaskButton.setAttribute("src", "images/delete-icon.png");
     deleteTaskButton.id = "delete-task-button";
     formTaskOutput.setAttribute("data-value", selectedProject.name);
     selectedProject.taskArr.forEach((task) => {
@@ -215,15 +215,9 @@ const UI = {
   },
 };
 // event click to show side bar form :
-let click = 0;
 projectsHeaderDiv.addEventListener("click", function () {
-  if (click == 0) {
-    sidebarFormContainer.style.cssText = "display : flex";
-    click++;
-  } else if (click != 0) {
-    sidebarFormContainer.style.cssText = "display : none";
-    click = 0;
-  }
+  sidebarFormContainer.style.display =
+    sidebarFormContainer.style.display === "none" ? "flex" : "none";
 });
 addProjectButton.addEventListener("click", function () {
   sidebarFormContainer.style.cssText = "display : flex";
